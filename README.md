@@ -160,6 +160,6 @@ This system is a linear system with more equations than variables so there might
 
 Last but not least all that is left is to draw the 3d point in the simulator. I get the color of the 2d point from the camera left and to draw the 3d point with that color I use one of the methos provided:
 
-- ** ** 
+- ** TO BE CONTINUED** 
 
 
