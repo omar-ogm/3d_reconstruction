@@ -168,3 +168,9 @@ Finally after 7:43 minutes, the reconstruction has been finish and here are the 
 <img src="./resources/result_1.PNG" alt="Reconstruction" />
 
 <img src="./resources/planos.PNG" alt="Planes" />
+ 
+As seen in the last image, in the depth plane (Z), there seem to be a few planes instead of a continuity in the depth of the points. The points are kind of group by some certain values of the depth. This is due to the resolution depends on the resolution on the image which is low (240x320). So the planes represents the different values the Z plane whith this image resolution. 
+
+Basically in this image a pixel represents some measure in meters in reality, if the image had higher resolution (more pixels) then the measure on reality will be slower (since having more pixels for the same FOV results in less size in reality by pixel).
+
+In fact, stereo canonical pairs are usually used to get disparity maps, not a full reconstruction of a scene as a point cloud.
