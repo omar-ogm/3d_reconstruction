@@ -150,7 +150,7 @@ As in section 2.3, this time I have two equations for the two projection rays. T
 The (X,Y,Z) coordinates will be the same for the two rays, this is the restriction for the two rays to intersect, share a point. 
 Then I have 5 variables (X,Y,Z, kl, kr) and 6 equations (each equation of the straight line can be seen as 3 equations each, one for the X, one for the Y and one for the Z coordinate).
 
-If I leave alone the **a vector** and reorder terms I obtained the following system:
+If I isoleta the **a vector** and reorder terms I obtained the following system:
 
 <img src="./resources/linear_system.PNG" alt="straight line equation" />
 
@@ -160,9 +160,11 @@ This system is a linear system with more equations than variables so there might
 
 Last but not least all that is left is to draw the 3d point in the simulator. I get the color of the 2d point from the camera left and to draw the 3d point with that color I use one of the methods provided:
 
-- **self.drawPoint(point,color)**: Point must be a 3D point as (Z,X,Y) and the color is RGB with ranges from 0-1, so color could be (1.0 0.5 0) for example.
+- **self.drawPoint(point,color)**: Point must be a 3D point as (Z,X,Y) and the color is RGB with ranges from 0-1, so color could be (1.0, 0.5, 0) for example.
 
 
-Finally after a while the reconstruction has been finish and here are the results:
+Finally after 7:43 minutes, the reconstruction has been finish and here are the results:
 
-<img src="./resources/result.PNG" alt="Intrinsic" />
+<img src="./resources/result_1.PNG" alt="Reconstruction" />
+
+<img src="./resources/planos.PNG" alt="Planes" />
