@@ -174,3 +174,47 @@ As seen in the last image, in the depth plane (Z), there seem to be a few planes
 Basically in this image a pixel represents some measure in meters in reality, if the image had higher resolution (more pixels) then the measure on reality will be slower (since having more pixels for the same FOV results in less size in reality by pixel).
 
 In fact, stereo canonical pairs are usually used to get disparity maps, not a full reconstruction of a scene as a point cloud.
+
+## 3. Optimization
+
+Almost 8 minutes to process the image is a little too much, so here Ill try to speed up the process applying some techniques and improving the performance of the code when available.
+The points to process are close to 7000 points for the canny detector.
+
+First of all, lets measure the execution time of certain parts of the code to know where I have to focus the optimization on:
+
+Ill measure the time it takes the main methods of my code, **best_match(...)**, which handles the correspondences and returns the best match, **get_intersection_straight_lines3D(...)**, which returns the 3d point where the intersection of the two projection rays intersect or at least a point between those two rays, and finally the execution that to cumpute one 3dpoint from a 2dpoint given.
+
+Some results:
+best_match() time: 0.0259680747986
+get_intersection_straight_lines3D() time: 0.000547885894775
+One point time execution:0.0282430648804
+
+best_match() time: 0.0849659442902
+get_intersection_straight_lines3D() time: 0.000730991363525
+One point time execution:0.0870230197906
+
+best_match() time: 0.0989849567413
+get_intersection_straight_lines3D() time: 0.00032901763916
+One point time execution:0.100698947906
+
+As can be seen here, the 90% of the time spent is on the **best_match(...)** method. Almost the entire time is waste on computing the correspondences. This step is surely the one that is the heaviest in computation cost, but is also the place where I have more room for improvement.
+
+Measuring the time for opencv **cv2.matchTemplate(...)**:
+It spends around 3E-05 for each match.
+
+Since right now Im comparing against all the point on the epipolar and this is a horizontal line, and since the window of the correspondece is 11x11, 310 operations are performed.
+
+The total time that toook the 310 operations of **cv2.matchTemplate(...)** was:
+
+Match_template total time: 0.00808954238892
+Vs
+best_match() time: 0.0106420516968
+
+So around 80% of the time of the **best_match()** method is waste on the opencv method **cv2.matchTemplate(...)**
+
+It seems like focusing here to optimize time could improve a lot the execution time.
+
+But why is the opencv method so slow, because Ive used it previously to look for correspondences in big images and it was really fast.
+Probably since here im comparing two smalls windows instead of a small window against a big image, some operations that are internally been made like for example copying images is slow. Ill find out when I do my own comparation method.
+
+
