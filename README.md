@@ -229,9 +229,9 @@ The final performance time of the HSV impplementation was **6:36 minutes**
 
 Compare to the previous time of 7:43 min, the gain was 17% in time of reconstruction.
 
-### 3.2 Looking for point to compare against
+### 3.2 Looking for points to compare against
 
-Since Im using cannys algorithm to detect edges and reconstruct only those points that comes from the Canny Algorithm, a good idea is to get the Canny image from the other camera.
+Since Im using canny's algorithm to detect edges and reconstruct only those points that comes from the Canny Algorithm, a good idea is to get the Canny image from the other camera.
 
 A restriction that can be applied is to only compare with points that are also edges on the epipolar. This decrease a lot the points that I have to check for correspondences, making the reconstruction faster, but I have to be more careful that before since the correspondences are more likely to have false positives, since there are fewer points.
 
