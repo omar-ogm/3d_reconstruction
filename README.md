@@ -217,6 +217,8 @@ It seems like focusing here to optimize time could improve a lot the execution t
 But why is the opencv method so slow, because Ive used it previously to look for correspondences in big images and it was really fast.
 Probably since here im comparing two smalls windows instead of a small window against a big image, some operations that are internally been made like for example copying images is slow. Ill find out when I do my own comparation method.
 
+### 3.1 Comparing with my own method, in HSV
+
 I implemented my own comparator using HSV space, using:
 
 <img src="./resources/HSV.PNG" alt="HSV" />
@@ -225,4 +227,39 @@ In my computer testing against one image it seems like the HSV comparation was t
 
 The final performance time of the HSV impplementation was **6:36 minutes**
 
-Compare to the previous time of 7:43 min, the gain was 17% in time of reconstruction..
+Compare to the previous time of 7:43 min, the gain was 17% in time of reconstruction.
+
+### 3.2 Looking for point to compare against
+
+Since Im using cannys algorithm to detect edges and reconstruct only those points that comes from the Canny Algorithm, a good idea is to get the Canny image from the other camera.
+
+A restriction that can be applied is to only compare with points that are also edges on the epipolar. This decrease a lot the points that I have to check for correspondences, making the reconstruction faster, but I have to be more careful that before since the correspondences are more likely to have false positives, since there are fewer points.
+
+Here Ill only compare against the points that are edge in the epipolar, since this is a simulator this is enough but with real cameras one should check also the neighbourhood points around the edges points in the epipolar to get better correspondences and a better reconstruction.
+
+The performance was pretty good in time:
+
+- **34 secs** for the HSV method 
+- **44 secs** for the opencv's match template
+
+But since now some points may not match exactly (since im not looking in the neighbourhood) some points are likely to be match incorrectly, or imprecisely. This ouput a lot of noise in the reconstruction as can be seen:
+
+<img src="./resources/HSV_fast_front.PNG" alt="Front_fast_hsv" />
+
+<img src="./resources/HSV_result_planes.PNG" alt="Planes_fast_hsv" />
+
+The possible solutions to this wil be:
+
+- Search on the neighbourhood of the cannys points from the epipolar.
+- Apply a harder threshold to the points been matched (On the correspondence)
+
+Here Ill finally use opencv's method since is easier to set a threshold since it goes from 0-1, while the HSV method is not, making it difficult to decide a threshold.
+
+Here are the results of using opencv's method with a harder threshold so I get only very good correspondeces:
+
+<img src="./resources/match_method_fast.PNG" alt="Front_fast_hsv" />
+
+<img src="./resources/match_method_fast_planes.PNG" alt="Front_fast_hsv" />
+
+
+
