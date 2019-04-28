@@ -163,7 +163,7 @@ Last but not least all that is left is to draw the 3d point in the simulator. I 
 - **self.drawPoint(point,color)**: Point must be a 3D point as (Z,X,Y) and the color is RGB with ranges from 0-1, so color could be (1.0, 0.5, 0) for example.
 
 
-Finally after 7:43 minutes, the reconstruction has been finish and here are the results:
+Finally after **7:43 minutes**, the reconstruction has been finish and here are the results:
 
 <img src="./resources/result_1.PNG" alt="Reconstruction" />
 
@@ -217,4 +217,12 @@ It seems like focusing here to optimize time could improve a lot the execution t
 But why is the opencv method so slow, because Ive used it previously to look for correspondences in big images and it was really fast.
 Probably since here im comparing two smalls windows instead of a small window against a big image, some operations that are internally been made like for example copying images is slow. Ill find out when I do my own comparation method.
 
+I implemented my own comparator using HSV space, using:
 
+<img src="./resources/HSV.PNG" alt="HSV" />
+
+In my computer testing against one image it seems like the HSV comparation was twice as fast as opencv method. But comparing in the simulator gives unxpected results, sometimes the HSV comparation was faster and sometimes opencv's method was faster. The points of correspondeces were basically the same and the reconstrucction was quite the same.
+
+The final performance time of the HSV impplementation was **6:36 minutes**
+
+Compare to the previous time of 7:43 min, the gain was 17% in time of reconstruction..
