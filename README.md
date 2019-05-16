@@ -253,7 +253,7 @@ The possible solutions to this wil be:
 - Search on the neighbourhood of the cannys points from the epipolar.
 - Apply a harder threshold to the points been matched (On the correspondence)
 
-Here Ill finally use opencv's method since is easier to set a threshold since it goes from 0-1, while the HSV method is not, making it difficult to decide a threshold.
+Here Ill finally use opencv's method since is easier to set a threshold since it is normalized from 0-1, while the HSV method is not, making it difficult to decide a threshold.
 
 Here are the results of using opencv's method with a harder threshold so I get only very good correspondeces:
 
